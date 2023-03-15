@@ -1,0 +1,115 @@
+﻿{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "installDir": "${sourceDir}/out/install/${presetName}"
+        },
+        {
+            "name": "windows-base",
+            "hidden": true,
+            "inherits": "base",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "unix-base",
+            "hidden": true,
+            "inherits": "base",
+            "generator": "Unix Makefiles",
+            "condition": {
+                "type": "notEquals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "x64-debug",
+            "hidden": true,
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "x64-debug-windows",
+            "displayName": "x64 Debug",
+            "inherits": [ "x64-debug", "windows-base" ]
+        },
+        {
+            "name": "x64-debug-unix",
+            "displayName": "x64 Debug",
+            "inherits": [ "x64-debug", "unix-base" ]
+        },
+        {
+            "name": "x64-release",
+            "hidden": true,
+            "inherits": "x64-debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "x64-release-windows",
+            "displayName": "x64 Release",
+            "inherits": [ "x64-release", "windows-base" ]
+        },
+        {
+            "name": "x64-release-unix",
+            "displayName": "x64 Debug",
+            "inherits": [ "x64-release", "unix-base" ]
+        },
+        {
+            "name": "x86-debug",
+            "hidden": true,
+            "architecture": {
+                "value": "x86",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "x86-debug-windows",
+            "displayName": "x86 Debug",
+            "inherits": [ "x86-debug", "windows-base" ]
+        },
+        {
+            "name": "x86-debug-unix",
+            "displayName": "x86 Debug",
+            "inherits": [ "x86-debug", "unix-base" ]
+        },
+        {
+            "name": "x86-release",
+            "hidden": true,
+            "inherits": "x86-debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "x86-release-windows",
+            "displayName": "x86 Release",
+            "inherits": [ "x86-release", "windows-base" ]
+        },
+        {
+            "name": "x86-release-unix",
+            "displayName": "x86 Debug",
+            "inherits": [ "x86-release", "unix-base" ]
+        }
+    ]
+}
